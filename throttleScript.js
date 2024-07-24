@@ -1,9 +1,10 @@
 const throttleInput = document.querySelector("#throttleInput");
 const throttledValueSpan = document.querySelector("#throttledValue");
 
-let isThrottle;
+let isThrottle = false;
 
-const throttleFunc = (value, delay) => {
+const throttleFunc = (event) => {
+  const value = event.target.value;
   if (isThrottle) return;
 
   isThrottle = true;
@@ -11,9 +12,15 @@ const throttleFunc = (value, delay) => {
   setTimeout(() => {
     throttledValueSpan.textContent = value;
     isThrottle = false;
-  }, delay);
+  }, 1000);
 };
 
-throttleInput.addEventListener("input", (event) =>
-  throttleFunc(event.target.value, 1000)
+throttleInput.addEventListener("input", throttleFunc);
+
+throttleInput.addEventListener(
+  "blur",
+  () => throttleInput.removeEventListener("input", throttleFunc),
+  {
+    once: true,
+  }
 );
