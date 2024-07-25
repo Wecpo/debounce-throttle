@@ -3,7 +3,7 @@ const deboncedValueSpan = document.querySelector("#debouncedValue");
 
 let timeoutId = 0;
 
-const debounceFunc = (event) => {
+Function.prototype.debounceFunc = function () {
   const value = event.target.value;
 
   clearTimeout(timeoutId);
@@ -11,11 +11,11 @@ const debounceFunc = (event) => {
   timeoutId = setTimeout(() => (deboncedValueSpan.textContent = value), 1000);
 };
 
-debounceInput.addEventListener("input", debounceFunc);
+debounceInput.addEventListener("input", Function.debounceFunc);
 
 debounceInput.addEventListener(
   "blur",
-  () => debounceInput.removeEventListener("input", debounceFunc),
+  () => debounceInput.removeEventListener("input", Function.debounceFunc),
   {
     once: true,
   }

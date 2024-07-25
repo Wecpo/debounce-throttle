@@ -3,7 +3,7 @@ const throttledValueSpan = document.querySelector("#throttledValue");
 
 let isThrottle = false;
 
-const throttleFunc = (event) => {
+Function.prototype.throttleFunc = function () {
   const value = event.target.value;
   if (isThrottle) return;
 
@@ -15,11 +15,11 @@ const throttleFunc = (event) => {
   }, 1000);
 };
 
-throttleInput.addEventListener("input", throttleFunc);
+throttleInput.addEventListener("input", Function.throttleFunc);
 
 throttleInput.addEventListener(
   "blur",
-  () => throttleInput.removeEventListener("input", throttleFunc),
+  () => throttleInput.removeEventListener("input", Function.throttleFunc),
   {
     once: true,
   }
